@@ -7,24 +7,62 @@ const ProductCard = ({ product }) => {
   const formattedPrice = isNaN(price) ? 'Quote on Request' : `₹${price.toLocaleString('en-IN')}`;
 
   return (
-    <div className="card card-hover" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', padding: 0 }}>
-      {/* Product Image */}
-      <div style={{ height: '200px', overflow: 'hidden', position: 'relative', backgroundColor: '#090d16' }}>
+    <div
+      className="card card-hover"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        overflow: 'hidden',
+        padding: 0,
+        backgroundColor: '#FFFFFF',
+        borderColor: 'var(--border-color)',
+        borderRadius: 'var(--radius-md)',
+      }}
+    >
+      {/* Product Image Area */}
+      <div
+        style={{
+          height: '200px',
+          overflow: 'hidden',
+          position: 'relative',
+          backgroundColor: 'var(--bg-surface)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderBottom: '1px solid var(--border-color)',
+        }}
+      >
         <img
-          src={product.main_image}
+          src={product.main_image || '/logo.png'}
           alt={product.name}
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '1rem' }}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = '/logo.png';
+          }}
         />
         {/* MOQ Badge */}
         <div style={{ position: 'absolute', top: '0.75rem', right: '0.75rem' }}>
-          <span className="badge badge-moq">
-            <PackageCheck size={13} /> MOQ: {product.minimum_order_quantity} Units
+          <span className="badge badge-moq" style={{ backgroundColor: '#FFFFFF', boxShadow: 'var(--shadow-sm)' }}>
+            <PackageCheck size={13} style={{ color: 'var(--primary-blue)' }} /> MOQ: {product.minimum_order_quantity || 100}
           </span>
         </div>
         {/* Category Tag */}
         {product.category_name && (
           <div style={{ position: 'absolute', bottom: '0.75rem', left: '0.75rem' }}>
-            <span style={{ backgroundColor: 'rgba(15, 23, 42, 0.85)', backdropFilter: 'blur(4px)', color: 'var(--text-muted)', fontSize: '0.75rem', fontWeight: 600, padding: '0.25rem 0.6rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
+            <span
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                color: 'var(--text-secondary)',
+                fontSize: '0.725rem',
+                fontWeight: 600,
+                padding: '0.2rem 0.55rem',
+                borderRadius: 'var(--radius-sm)',
+                border: '1px solid var(--border-color)',
+                boxShadow: 'var(--shadow-sm)',
+              }}
+            >
               {product.category_name}
             </span>
           </div>
@@ -34,24 +72,54 @@ const ProductCard = ({ product }) => {
       {/* Content */}
       <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         <div>
-          <h3 style={{ fontSize: '1.15rem', color: 'var(--text-main)', marginBottom: '0.5rem', lineHeight: 1.3 }}>
+          <h3
+            style={{
+              fontSize: '1.05rem',
+              color: 'var(--text-primary)',
+              marginBottom: '0.4rem',
+              lineHeight: 1.35,
+              fontWeight: 600,
+            }}
+          >
             {product.name}
           </h3>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', lineHeight: 1.5, marginBottom: '1rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+          <p
+            style={{
+              color: 'var(--text-secondary)',
+              fontSize: '0.85rem',
+              lineHeight: 1.5,
+              marginBottom: '1rem',
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+            }}
+          >
             {product.description}
           </p>
         </div>
 
         <div>
-          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '1rem', paddingTop: '0.75rem', borderTop: '1px solid var(--border-color)' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'baseline',
+              justifyContent: 'space-between',
+              marginBottom: '1rem',
+              paddingTop: '0.75rem',
+              borderTop: '1px solid var(--border-color)',
+            }}
+          >
             <div>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', display: 'block', textTransform: 'uppercase' }}>Price / Unit</span>
-              <span style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--primary)', fontFamily: 'var(--font-heading)' }}>
+              <span style={{ fontSize: '0.725rem', color: 'var(--text-muted)', display: 'block', textTransform: 'uppercase', fontWeight: 500 }}>
+                Wholesale Price
+              </span>
+              <span style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--primary-blue)', fontFamily: 'var(--font-heading)' }}>
                 {formattedPrice}
               </span>
             </div>
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-              Min {product.minimum_order_quantity} pcs
+            <span style={{ fontSize: '0.775rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
+              Min {product.minimum_order_quantity || 100} pcs
             </span>
           </div>
 

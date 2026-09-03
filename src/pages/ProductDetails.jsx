@@ -29,8 +29,7 @@ const ProductDetails = () => {
         const res = await productsService.getProductById(productId);
         if (res.success && res.product) {
           setProduct(res.product);
-          // Set initial quantity to MOQ
-          setQuantity(parseInt(res.product.minimum_order_quantity, 10));
+          setQuantity(parseInt(res.product.minimum_order_quantity || 100, 10));
         }
       } catch (err) {
         setError(err.message || 'Unable to load product details.');
@@ -47,7 +46,7 @@ const ProductDetails = () => {
     setError('');
     setSuccessMsg('');
 
-    const moq = parseInt(product.minimum_order_quantity, 10);
+    const moq = parseInt(product.minimum_order_quantity || 100, 10);
     if (quantity < moq) {
       setError(`Minimum order quantity is ${moq}.`);
       return;
@@ -67,19 +66,18 @@ const ProductDetails = () => {
     }
   };
 
-  if (loading) return <LoadingSpinner message="Loading product blueprint & specs..." />;
+  if (loading) return <LoadingSpinner message="Loading SkyLET product details..." />;
   if (error && !product) return <ErrorMessage message={error} />;
   if (!product) return <ErrorMessage message="Product not found." />;
 
-  const moq = parseInt(product.minimum_order_quantity, 10);
+  const moq = parseInt(product.minimum_order_quantity || 100, 10);
   const price = parseFloat(product.price);
   const formattedPrice = `₹${price.toLocaleString('en-IN')}`;
 
   return (
     <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-      
       {/* Back link */}
-      <Link to={`/category/${product.category_id}`} className="btn btn-secondary btn-sm" style={{ marginBottom: '1.5rem', width: 'fit-content' }}>
+      <Link to={`/category/${product.category_id}`} className="btn btn-outline btn-sm" style={{ marginBottom: '1.5rem', width: 'fit-content' }}>
         <ArrowLeft size={16} /> Back to {product.category_name || 'Category'}
       </Link>
 
@@ -89,10 +87,10 @@ const ProductDetails = () => {
         <div
           style={{
             padding: '1rem 1.25rem',
-            backgroundColor: 'rgba(16, 185, 129, 0.15)',
-            border: '1px solid rgba(16, 185, 129, 0.3)',
-            borderRadius: 'var(--radius-md)',
-            color: 'var(--status-completed)',
+            backgroundColor: 'var(--success-light)',
+            border: '1px solid rgba(22, 163, 74, 0.25)',
+            borderRadius: 'var(--radius-sm)',
+            color: 'var(--success)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -111,67 +109,99 @@ const ProductDetails = () => {
 
       {/* Main Grid */}
       <div className="grid-2" style={{ gap: '2.5rem', alignItems: 'start' }}>
-        
-        {/* Left Column: Product Main Image */}
-        <div style={{ backgroundColor: 'var(--bg-card)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-color)', overflow: 'hidden', padding: '1rem' }}>
-          <div style={{ height: '380px', overflow: 'hidden', borderRadius: 'var(--radius-md)', backgroundColor: '#060a12', position: 'relative' }}>
+        {/* Left Column: Product Image Showcase */}
+        <div
+          style={{
+            backgroundColor: '#FFFFFF',
+            borderRadius: 'var(--radius-md)',
+            border: '1px solid var(--border-color)',
+            overflow: 'hidden',
+            padding: '1.25rem',
+            boxShadow: 'var(--shadow-sm)',
+          }}
+        >
+          <div
+            style={{
+              height: '380px',
+              overflow: 'hidden',
+              borderRadius: 'var(--radius-sm)',
+              backgroundColor: 'var(--bg-surface)',
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: '1px solid var(--border-color)',
+            }}
+          >
             <img
-              src={product.main_image}
+              src={product.main_image || '/logo.png'}
               alt={product.name}
-              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+              style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', padding: '1rem' }}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = '/logo.png';
+              }}
             />
             <div style={{ position: 'absolute', top: '1rem', right: '1rem' }}>
-              <span className="badge badge-moq" style={{ fontSize: '0.8rem', padding: '0.35rem 0.75rem' }}>
-                <PackageCheck size={14} /> MOQ: {moq} Units
+              <span className="badge badge-moq" style={{ fontSize: '0.8rem', padding: '0.35rem 0.75rem', backgroundColor: '#FFFFFF' }}>
+                <PackageCheck size={14} style={{ color: 'var(--primary-blue)' }} /> MOQ: {moq} Units
               </span>
             </div>
           </div>
 
           {/* View More Lightbox CTA Button */}
-          <div style={{ marginTop: '1rem' }}>
+          <div style={{ marginTop: '1.25rem' }}>
             <button
               onClick={() => setIsLightboxOpen(true)}
-              className="btn btn-outline"
+              className="btn btn-secondary"
               style={{ width: '100%', justifyContent: 'center' }}
             >
-              <Eye size={18} /> View More Detailed Image
+              <Eye size={18} /> View Technical Image Preview
             </button>
           </div>
         </div>
 
         {/* Right Column: Specifications & Actions */}
-        <div className="card" style={{ backgroundColor: 'var(--bg-card)', padding: '2rem' }}>
-          <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+        <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '2rem' }}>
+          <span style={{ fontSize: '0.775rem', fontWeight: 600, color: 'var(--primary-blue)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             {product.category_name}
           </span>
-          <h1 style={{ fontSize: '2rem', color: 'var(--text-main)', marginTop: '0.25rem', marginBottom: '1rem', lineHeight: 1.25 }}>
+          <h1 style={{ fontSize: '1.85rem', color: 'var(--text-primary)', marginTop: '0.25rem', marginBottom: '1rem', lineHeight: 1.25, fontWeight: 700 }}>
             {product.name}
           </h1>
 
-          <div style={{ marginBottom: '1.5rem', paddingBottom: '1.25rem', borderBottom: '1px solid var(--border-color)' }}>
-            <span style={{ fontSize: '0.85rem', color: 'var(--text-dim)', display: 'block' }}>Unit Price (Excl. Freight)</span>
+          <div style={{ marginBottom: '1.5rem', paddingTop: '0.5rem', paddingBottom: '1.25rem', borderBottom: '1px solid var(--border-color)' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'block', textTransform: 'uppercase' }}>Wholesale B2B Rate</span>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem' }}>
-              <span style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--primary)', fontFamily: 'var(--font-heading)' }}>
+              <span style={{ fontSize: '2.1rem', fontWeight: 800, color: 'var(--primary-blue)', fontFamily: 'var(--font-heading)' }}>
                 {formattedPrice}
               </span>
-              <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>per piece</span>
+              <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>per unit</span>
             </div>
           </div>
 
           {/* Description */}
           <div style={{ marginBottom: '1.75rem' }}>
-            <h4 style={{ fontSize: '0.95rem', color: 'var(--text-main)', marginBottom: '0.5rem' }}>Technical Specification & Description</h4>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.6 }}>
+            <h4 style={{ fontSize: '0.9rem', color: 'var(--text-primary)', marginBottom: '0.5rem', fontWeight: 600 }}>Technical Description</h4>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.6 }}>
               {product.description}
             </p>
           </div>
 
           {/* MOQ Logic Control */}
-          <div style={{ backgroundColor: 'var(--bg-input)', padding: '1.25rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-color)', marginBottom: '1.75rem' }}>
+          <div
+            style={{
+              backgroundColor: 'var(--bg-surface)',
+              padding: '1.25rem',
+              borderRadius: 'var(--radius-sm)',
+              border: '1px solid var(--border-color)',
+              marginBottom: '1.75rem',
+            }}
+          >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
               <label className="form-label" style={{ margin: 0 }}>Select Quantity</label>
-              <span style={{ fontSize: '0.8rem', color: 'var(--accent-cyan)', fontWeight: 600 }}>
-                Minimum Order: {moq}
+              <span style={{ fontSize: '0.8rem', color: 'var(--primary-blue)', fontWeight: 600 }}>
+                Minimum Order Quantity: {moq}
               </span>
             </div>
 
@@ -183,14 +213,14 @@ const ProductDetails = () => {
           </div>
 
           {/* Total Calculation Preview */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', fontSize: '1.1rem', fontWeight: 700 }}>
-            <span style={{ color: 'var(--text-muted)' }}>Order Total Estimate:</span>
-            <span style={{ color: 'var(--text-main)', fontSize: '1.4rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', fontSize: '1rem', fontWeight: 600 }}>
+            <span style={{ color: 'var(--text-secondary)' }}>Subtotal Calculation:</span>
+            <span style={{ color: 'var(--text-primary)', fontSize: '1.35rem', fontWeight: 700 }}>
               ₹{(quantity * price).toLocaleString('en-IN')}
             </span>
           </div>
 
-          {/* Action Buttons */}
+          {/* Action Button */}
           <button
             onClick={handleAddToCart}
             className="btn btn-primary btn-lg"
@@ -200,18 +230,18 @@ const ProductDetails = () => {
             <ShoppingCart size={20} /> {adding ? 'Adding to Cart...' : 'Add to Cart'}
           </button>
 
-          <div style={{ marginTop: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-dim)', fontSize: '0.825rem' }}>
-            <ShieldCheck size={16} style={{ color: 'var(--status-completed)' }} /> Tested & verified for industrial power grid stability.
+          <div style={{ marginTop: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', fontSize: '0.825rem' }}>
+            <ShieldCheck size={16} style={{ color: 'var(--primary-blue)' }} /> Direct manufacturer dispatch & quality warranty.
           </div>
         </div>
       </div>
 
-      {/* Lightbox Modal for View Details Image */}
+      {/* Lightbox Modal */}
       <LightboxModal
         isOpen={isLightboxOpen}
         onClose={() => setIsLightboxOpen(false)}
-        imageUrl={product.view_details_image || product.main_image}
-        title={`${product.name} — Technical Details & Circuit Diagram`}
+        imageUrl={product.view_details_image || product.main_image || '/logo.png'}
+        title={`${product.name} — Technical Details`}
       />
     </div>
   );

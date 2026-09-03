@@ -1,16 +1,16 @@
 import React from 'react';
 
-const LoadingSpinner = ({ message = 'Loading...' }) => {
+const LoadingSpinner = ({ message = 'Loading SkyLET Portal...' }) => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '3rem 1rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '4rem 1rem' }}>
       <div
         style={{
-          width: '40px',
-          height: '40px',
-          border: '4px solid rgba(245, 158, 11, 0.2)',
-          borderTop: '4px solid var(--primary)',
+          width: '42px',
+          height: '42px',
+          border: '4px solid var(--primary-blue-light)',
+          borderTop: '4px solid var(--primary-blue)',
           borderRadius: '50%',
-          animation: 'spin 0.8s linear infinite',
+          animation: 'spin 0.75s linear infinite',
         }}
       />
       <style>{`
@@ -19,7 +19,7 @@ const LoadingSpinner = ({ message = 'Loading...' }) => {
           100% { transform: rotate(360deg); }
         }
       `}</style>
-      <p style={{ marginTop: '1rem', color: 'var(--text-muted)', fontSize: '0.95rem', fontWeight: 500 }}>{message}</p>
+      <p style={{ marginTop: '1.25rem', color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: 500 }}>{message}</p>
     </div>
   );
 };

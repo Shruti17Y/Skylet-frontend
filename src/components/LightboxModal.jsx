@@ -24,8 +24,8 @@ const LightboxModal = ({ isOpen, onClose, imageUrl, title }) => {
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: 'rgba(15, 23, 42, 0.92)',
-        backdropFilter: 'blur(8px)',
+        backgroundColor: 'rgba(23, 32, 51, 0.75)',
+        backdropFilter: 'blur(4px)',
         zIndex: 1000,
         display: 'flex',
         alignItems: 'center',
@@ -41,7 +41,7 @@ const LightboxModal = ({ isOpen, onClose, imageUrl, title }) => {
           maxWidth: '900px',
           maxHeight: '90vh',
           width: '100%',
-          backgroundColor: 'var(--bg-card)',
+          backgroundColor: '#FFFFFF',
           border: '1px solid var(--border-color)',
           borderRadius: 'var(--radius-lg)',
           overflow: 'hidden',
@@ -51,11 +51,11 @@ const LightboxModal = ({ isOpen, onClose, imageUrl, title }) => {
         }}
       >
         {/* Header */}
-        <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#0f172a' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)' }}>
+        <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#FFFFFF' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary-blue)' }}>
             <ZoomIn size={20} />
-            <h4 style={{ fontSize: '1rem', color: 'var(--text-main)', margin: 0 }}>
-              {title || 'Detailed Product Blueprint'}
+            <h4 style={{ fontSize: '1rem', color: 'var(--text-primary)', margin: 0, fontWeight: 700 }}>
+              {title || 'Detailed Technical Preview'}
             </h4>
           </div>
           <button
@@ -63,31 +63,30 @@ const LightboxModal = ({ isOpen, onClose, imageUrl, title }) => {
             style={{
               background: 'none',
               border: 'none',
-              color: 'var(--text-muted)',
+              color: 'var(--text-secondary)',
               cursor: 'pointer',
               padding: '0.25rem',
               borderRadius: 'var(--radius-sm)',
               display: 'flex',
               alignItems: 'center',
             }}
-
           >
-            <X size={24} />
+            <X size={22} />
           </button>
         </div>
 
         {/* Image Container */}
-        <div style={{ padding: '1.5rem', overflowY: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#060a12' }}>
+        <div style={{ padding: '1.5rem', overflowY: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--bg-surface)' }}>
           <img
             src={imageUrl}
             alt={title || 'Detailed product view'}
-            style={{ maxWidth: '100%', maxHeight: '70vh', objectFit: 'contain', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-color)' }}
+            style={{ maxWidth: '100%', maxHeight: '70vh', objectFit: 'contain', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}
           />
         </div>
 
         {/* Footer */}
-        <div style={{ padding: '0.85rem 1.25rem', borderTop: '1px solid var(--border-color)', display: 'flex', justifyContent: 'flex-end', backgroundColor: '#0f172a' }}>
-          <button onClick={onClose} className="btn btn-sm btn-secondary">
+        <div style={{ padding: '0.85rem 1.25rem', borderTop: '1px solid var(--border-color)', display: 'flex', justifyContent: 'flex-end', backgroundColor: '#FFFFFF' }}>
+          <button onClick={onClose} className="btn btn-sm btn-outline">
             Close Preview
           </button>
         </div>

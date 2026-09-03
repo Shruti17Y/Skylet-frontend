@@ -42,7 +42,7 @@ const ProtectedRoute = ({ children }) => {
 // Root Redirect Helper
 const RootRedirect = () => {
   const { isAuthenticated, loading } = useAuth();
-  if (loading) return <LoadingSpinner message="Starting VoltCraft Portal..." />;
+  if (loading) return <LoadingSpinner message="Starting SkyLET Portal..." />;
   return isAuthenticated ? <Navigate to="/home" replace /> : <Navigate to="/login" replace />;
 };
 

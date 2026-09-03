@@ -14,9 +14,7 @@ const QuantitySelector = ({ quantity, minQuantity = 1, onChange, step = 1, disab
 
   const handleInputChange = (e) => {
     const val = parseInt(e.target.value, 10);
-    if (isNaN(val)) {
-      onChange(minQuantity);
-    } else if (val < minQuantity) {
+    if (isNaN(val) || val < minQuantity) {
       onChange(minQuantity);
     } else {
       onChange(val);
@@ -27,27 +25,37 @@ const QuantitySelector = ({ quantity, minQuantity = 1, onChange, step = 1, disab
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-      <div style={{ display: 'inline-flex', alignItems: 'center', backgroundColor: 'var(--bg-input)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-md)', overflow: 'hidden', width: 'fit-content' }}>
-        
+      <div
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          backgroundColor: '#FFFFFF',
+          border: '1px solid var(--border-color)',
+          borderRadius: 'var(--radius-sm)',
+          overflow: 'hidden',
+          width: 'fit-content',
+          boxShadow: 'var(--shadow-sm)',
+        }}
+      >
         {/* Decrement Button */}
         <button
           type="button"
           onClick={handleDecrement}
           disabled={disabled || isAtMinimum}
           style={{
-            padding: '0.6rem 0.85rem',
-            backgroundColor: 'transparent',
+            padding: '0.55rem 0.85rem',
+            backgroundColor: isAtMinimum ? 'var(--bg-surface)' : 'transparent',
             border: 'none',
-            color: isAtMinimum ? 'var(--text-dim)' : 'var(--text-main)',
+            color: isAtMinimum ? 'var(--text-muted)' : 'var(--text-primary)',
             cursor: isAtMinimum || disabled ? 'not-allowed' : 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            transition: 'background-color 0.2s ease',
+            transition: 'background-color 0.15s ease',
           }}
           title={isAtMinimum ? `Minimum order quantity is ${minQuantity}` : 'Decrease quantity'}
         >
-          <Minus size={16} />
+          <Minus size={15} />
         </button>
 
         {/* Input Display */}
@@ -64,11 +72,11 @@ const QuantitySelector = ({ quantity, minQuantity = 1, onChange, step = 1, disab
             border: 'none',
             borderLeft: '1px solid var(--border-color)',
             borderRight: '1px solid var(--border-color)',
-            color: 'var(--primary)',
-            fontWeight: 800,
-            fontSize: '1rem',
-            fontFamily: 'var(--font-heading)',
-            padding: '0.5rem 0',
+            color: 'var(--primary-blue)',
+            fontWeight: 700,
+            fontSize: '0.95rem',
+            fontFamily: 'var(--font-sans)',
+            padding: '0.45rem 0',
             MozAppearance: 'textfield',
           }}
         />
@@ -79,25 +87,25 @@ const QuantitySelector = ({ quantity, minQuantity = 1, onChange, step = 1, disab
           onClick={handleIncrement}
           disabled={disabled}
           style={{
-            padding: '0.6rem 0.85rem',
+            padding: '0.55rem 0.85rem',
             backgroundColor: 'transparent',
             border: 'none',
-            color: 'var(--text-main)',
+            color: 'var(--text-primary)',
             cursor: disabled ? 'not-allowed' : 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            transition: 'background-color 0.2s ease',
+            transition: 'background-color 0.15s ease',
           }}
           title="Increase quantity"
         >
-          <Plus size={16} />
+          <Plus size={15} />
         </button>
       </div>
 
-      {isAtMinimum && (
-        <span style={{ fontSize: '0.75rem', color: 'var(--accent-cyan)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-          <AlertCircle size={12} /> Min MOQ reached ({minQuantity})
+      {isAtMinimum && minQuantity > 1 && (
+        <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+          <AlertCircle size={12} style={{ color: 'var(--primary-blue)' }} /> Minimum Order Quantity (MOQ): {minQuantity}
         </span>
       )}
     </div>

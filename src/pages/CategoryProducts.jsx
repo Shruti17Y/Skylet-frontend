@@ -44,26 +44,26 @@ const CategoryProducts = () => {
 
   return (
     <div>
-      <Link to="/categories" className="btn btn-secondary btn-sm" style={{ marginBottom: '1.5rem', width: 'fit-content' }}>
+      <Link to="/categories" className="btn btn-outline btn-sm" style={{ marginBottom: '1.5rem', width: 'fit-content' }}>
         <ArrowLeft size={16} /> Back to Categories
       </Link>
 
-      <div style={{ marginBottom: '2.5rem', backgroundColor: 'var(--bg-card)', padding: '2rem', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-color)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem' }}>
+      <div style={{ marginBottom: '2.5rem', backgroundColor: '#FFFFFF', padding: '2rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--primary-blue)', fontWeight: 600, fontSize: '0.8rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
           <Layers size={16} /> CATEGORY PRODUCT RANGE
         </div>
-        <h1 style={{ fontSize: '2.25rem', color: 'var(--text-main)', marginBottom: '0.5rem' }}>
+        <h1 style={{ fontSize: '2rem', color: 'var(--text-primary)', marginBottom: '0.5rem', fontWeight: 800 }}>
           {category ? category.name : 'Products'}
         </h1>
         {category && category.description && (
-          <p style={{ color: 'var(--text-muted)', fontSize: '1rem', maxWidth: '800px', lineHeight: 1.6 }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', maxWidth: '800px', lineHeight: 1.6 }}>
             {category.description}
           </p>
         )}
       </div>
 
       {loading ? (
-        <LoadingSpinner message="Fetching products..." />
+        <LoadingSpinner message="Fetching SkyLET category products..." />
       ) : error ? (
         <ErrorMessage message={error} />
       ) : products.length === 0 ? (

@@ -97,17 +97,16 @@ const Profile = () => {
     }
   };
 
-  if (loading) return <LoadingSpinner message="Loading your customer profile..." />;
+  if (loading) return <LoadingSpinner message="Loading your SkyLET profile..." />;
 
   return (
     <div style={{ maxWidth: '680px', margin: '0 auto' }}>
-      
       <div style={{ marginBottom: '2rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)', fontWeight: 700, fontSize: '0.85rem' }}>
-          <User size={18} /> ACCOUNT SETTINGS
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--primary-blue)', fontWeight: 600, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <User size={16} /> ACCOUNT SETTINGS
         </div>
-        <h1 style={{ fontSize: '2.25rem', color: 'var(--text-main)', margin: '0.25rem 0' }}>User Profile</h1>
-        <p style={{ color: 'var(--text-muted)' }}>Manage your personal details, contact number, and state location.</p>
+        <h1 style={{ fontSize: '2rem', color: 'var(--text-primary)', margin: '0.25rem 0', fontWeight: 800 }}>Profile</h1>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>Manage your personal information, WhatsApp contact, and state location.</p>
       </div>
 
       <ErrorMessage message={error} />
@@ -116,10 +115,10 @@ const Profile = () => {
         <div
           style={{
             padding: '1rem 1.25rem',
-            backgroundColor: 'rgba(16, 185, 129, 0.15)',
-            border: '1px solid rgba(16, 185, 129, 0.3)',
-            borderRadius: 'var(--radius-md)',
-            color: 'var(--status-completed)',
+            backgroundColor: 'var(--success-light)',
+            border: '1px solid rgba(22, 163, 74, 0.25)',
+            borderRadius: 'var(--radius-sm)',
+            color: 'var(--success)',
             display: 'flex',
             alignItems: 'center',
             gap: '0.75rem',
@@ -132,14 +131,13 @@ const Profile = () => {
         </div>
       )}
 
-      <div className="card" style={{ backgroundColor: 'var(--bg-card)', padding: '2rem' }}>
+      <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '2rem', borderRadius: 'var(--radius-md)', boxShadow: 'var(--shadow-sm)' }}>
         <form onSubmit={handleSubmit}>
-          
           {/* Full Name */}
           <div className="form-group">
             <label className="form-label">Full Name *</label>
             <div style={{ position: 'relative' }}>
-              <User size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
+              <User size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
               <input
                 type="text"
                 name="full_name"
@@ -152,27 +150,27 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* Email (Disabled / Readonly) */}
+          {/* Email (Readonly) */}
           <div className="form-group">
-            <label className="form-label">Email Address (Readonly Account Identity)</label>
+            <label className="form-label">Email Address (Account Identity)</label>
             <div style={{ position: 'relative' }}>
-              <Mail size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
+              <Mail size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
               <input
                 type="email"
                 className="form-input"
-                style={{ paddingLeft: '2.75rem', opacity: 0.7, cursor: 'not-allowed', backgroundColor: 'var(--bg-card)' }}
+                style={{ paddingLeft: '2.75rem', opacity: 0.7, cursor: 'not-allowed', backgroundColor: 'var(--bg-surface)' }}
                 value={formData.email}
                 disabled
               />
             </div>
           </div>
 
-          <div className="grid-2" style={{ gap: '1rem' }}>
+          <div className="grid-2" style={{ gap: '1.25rem' }}>
             {/* Birth Date */}
             <div className="form-group">
               <label className="form-label">Birth Date *</label>
               <div style={{ position: 'relative' }}>
-                <Calendar size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
+                <Calendar size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
                 <input
                   type="date"
                   name="birth_date"
@@ -189,7 +187,7 @@ const Profile = () => {
             <div className="form-group">
               <label className="form-label">State *</label>
               <div style={{ position: 'relative' }}>
-                <MapPin size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
+                <MapPin size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
                 <input
                   type="text"
                   name="state"
@@ -207,7 +205,7 @@ const Profile = () => {
           <div className="form-group" style={{ marginBottom: '2rem' }}>
             <label className="form-label">WhatsApp Number *</label>
             <div style={{ position: 'relative' }}>
-              <Phone size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
+              <Phone size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
               <input
                 type="tel"
                 name="whatsapp_number"
@@ -226,7 +224,6 @@ const Profile = () => {
           </button>
         </form>
       </div>
-
     </div>
   );
 };

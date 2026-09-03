@@ -9,22 +9,22 @@ const ErrorMessage = ({ message, onRetry }) => {
       style={{
         display: 'flex',
         alignItems: 'center',
-        justifyKeyword: 'space-between',
+        justifyContent: 'space-between',
         gap: '0.75rem',
         padding: '1rem 1.25rem',
-        backgroundColor: 'rgba(239, 68, 68, 0.1)',
-        border: '1px solid rgba(239, 68, 68, 0.3)',
-        borderRadius: 'var(--radius-md)',
-        color: '#fca5a5',
+        backgroundColor: 'var(--brand-red-light)',
+        border: '1px solid rgba(229, 9, 20, 0.25)',
+        borderRadius: 'var(--radius-sm)',
+        color: 'var(--brand-red)',
         marginBottom: '1.25rem',
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flex: 1 }}>
-        <AlertCircle size={20} style={{ flexShrink: 0, color: 'var(--status-danger)' }} />
-        <span style={{ fontSize: '0.925rem', fontWeight: 500 }}>{message}</span>
+        <AlertCircle size={20} style={{ flexShrink: 0, color: 'var(--brand-red)' }} />
+        <span style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--text-primary)' }}>{message}</span>
       </div>
       {onRetry && (
-        <button onClick={onRetry} className="btn btn-sm btn-outline" style={{ borderColor: 'rgba(239, 68, 68, 0.5)', color: '#fca5a5' }}>
+        <button onClick={onRetry} className="btn btn-sm btn-danger-outline">
           Retry
         </button>
       )}

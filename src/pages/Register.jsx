@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import ErrorMessage from '../components/ErrorMessage';
-import { User, Mail, Lock, Calendar, MapPin, Phone, ArrowRight, ShieldCheck } from 'lucide-react';
+import { User, Mail, Lock, Calendar, MapPin, Phone, ArrowRight } from 'lucide-react';
 
 const Register = () => {
   const { register } = useAuth();
@@ -28,7 +28,6 @@ const Register = () => {
     e.preventDefault();
     setError('');
 
-    // Frontend validations matching section 4
     if (!formData.full_name.trim()) {
       setError('Full Name cannot be empty.');
       return;
@@ -74,33 +73,50 @@ const Register = () => {
   };
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 140px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2.5rem 1rem' }}>
-      <div className="card" style={{ maxWidth: '580px', width: '100%', padding: '2.5rem 2rem', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
-        
+    <div style={{ minHeight: 'calc(100vh - 160px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2.5rem 1rem' }}>
+      <div
+        className="card"
+        style={{
+          maxWidth: '680px',
+          width: '100%',
+          padding: '2.5rem 2rem',
+          backgroundColor: '#FFFFFF',
+          border: '1px solid var(--border-color)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--shadow-md)',
+        }}
+      >
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <div style={{ display: 'inline-flex', padding: '0.75rem', backgroundColor: 'var(--primary-light)', borderRadius: 'var(--radius-md)', color: 'var(--primary)', marginBottom: '0.75rem' }}>
-            <ShieldCheck size={32} />
+          <div style={{ marginBottom: '1rem' }}>
+            <img
+              src="/logo.png"
+              alt="SkyLET Electrical Solutions"
+              style={{ height: '48px', width: 'auto', objectFit: 'contain' }}
+            />
           </div>
-          <h2 style={{ fontSize: '1.75rem', color: 'var(--text-main)', marginBottom: '0.35rem' }}>Customer Account Registration</h2>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Join VoltCraft for direct B2B electrical component ordering</p>
+          <h2 style={{ fontSize: '1.6rem', color: 'var(--text-primary)', marginBottom: '0.35rem', fontWeight: 700 }}>
+            Create Customer Account
+          </h2>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+            Register your company for wholesale B2B ordering and tracking
+          </p>
         </div>
 
         <ErrorMessage message={error} />
 
         <form onSubmit={handleSubmit}>
-          <div className="grid-2" style={{ gap: '1rem' }}>
-            
+          <div className="grid-2" style={{ gap: '1.25rem' }}>
             {/* Full Name */}
             <div className="form-group">
               <label className="form-label">Full Name *</label>
               <div style={{ position: 'relative' }}>
-                <User size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
+                <User size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
                 <input
                   type="text"
                   name="full_name"
                   className="form-input"
                   style={{ paddingLeft: '2.75rem' }}
-                  placeholder="e.g. Rahul Sharma"
+                  placeholder="Enter your full name"
                   value={formData.full_name}
                   onChange={handleChange}
                   required
@@ -112,7 +128,7 @@ const Register = () => {
             <div className="form-group">
               <label className="form-label">Birth Date *</label>
               <div style={{ position: 'relative' }}>
-                <Calendar size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
+                <Calendar size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
                 <input
                   type="date"
                   name="birth_date"
@@ -126,18 +142,18 @@ const Register = () => {
             </div>
           </div>
 
-          <div className="grid-2" style={{ gap: '1rem' }}>
+          <div className="grid-2" style={{ gap: '1.25rem' }}>
             {/* Email */}
             <div className="form-group">
               <label className="form-label">Email Address *</label>
               <div style={{ position: 'relative' }}>
-                <Mail size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
+                <Mail size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
                 <input
                   type="email"
                   name="email"
                   className="form-input"
                   style={{ paddingLeft: '2.75rem' }}
-                  placeholder="rahul@company.com"
+                  placeholder="Enter your email"
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -149,7 +165,7 @@ const Register = () => {
             <div className="form-group">
               <label className="form-label">Password * (Min 8 chars)</label>
               <div style={{ position: 'relative' }}>
-                <Lock size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
+                <Lock size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
                 <input
                   type="password"
                   name="password"
@@ -164,18 +180,18 @@ const Register = () => {
             </div>
           </div>
 
-          <div className="grid-2" style={{ gap: '1rem' }}>
+          <div className="grid-2" style={{ gap: '1.25rem' }}>
             {/* State */}
             <div className="form-group">
               <label className="form-label">State *</label>
               <div style={{ position: 'relative' }}>
-                <MapPin size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
+                <MapPin size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
                 <input
                   type="text"
                   name="state"
                   className="form-input"
                   style={{ paddingLeft: '2.75rem' }}
-                  placeholder="e.g. Gujarat / Maharashtra"
+                  placeholder="State name"
                   value={formData.state}
                   onChange={handleChange}
                   required
@@ -187,13 +203,13 @@ const Register = () => {
             <div className="form-group">
               <label className="form-label">WhatsApp Number *</label>
               <div style={{ position: 'relative' }}>
-                <Phone size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
+                <Phone size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
                 <input
                   type="tel"
                   name="whatsapp_number"
                   className="form-input"
                   style={{ paddingLeft: '2.75rem' }}
-                  placeholder="e.g. 9876543210"
+                  placeholder="Enter WhatsApp number"
                   value={formData.whatsapp_number}
                   onChange={handleChange}
                   required
@@ -208,9 +224,18 @@ const Register = () => {
           </button>
         </form>
 
-        <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-muted)', paddingTop: '1.25rem', borderTop: '1px solid var(--border-color)' }}>
-          Already registered?{' '}
-          <Link to="/login" style={{ fontWeight: 700, color: 'var(--primary)' }}>
+        <div
+          style={{
+            marginTop: '2rem',
+            textAlign: 'center',
+            fontSize: '0.875rem',
+            color: 'var(--text-secondary)',
+            paddingTop: '1.25rem',
+            borderTop: '1px solid var(--border-color)',
+          }}
+        >
+          Already have an account?{' '}
+          <Link to="/login" style={{ fontWeight: 600, color: 'var(--primary-blue)' }}>
             Login Here
           </Link>
         </div>

@@ -30,18 +30,18 @@ const Categories = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: '2rem' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem' }}>
-          <Grid size={16} /> COMPONENT PORTFOLIO
+      <div style={{ marginBottom: '2.5rem' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'var(--primary-blue)', fontWeight: 600, fontSize: '0.8rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <Grid size={16} /> ELECTRICAL PRODUCT LINEUP
         </div>
-        <h1 style={{ fontSize: '2.25rem', color: 'var(--text-main)', marginBottom: '0.5rem' }}>Product Categories</h1>
-        <p style={{ color: 'var(--text-muted)', fontSize: '1rem' }}>
-          Select an industrial electrical category to view available products and minimum order quantities.
+        <h1 style={{ fontSize: '2rem', color: 'var(--text-primary)', marginBottom: '0.5rem', fontWeight: 800 }}>Product Categories</h1>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
+          Select an industrial electrical category to view available B2B products and minimum order quantities.
         </p>
       </div>
 
       {loading ? (
-        <LoadingSpinner message="Loading electrical categories..." />
+        <LoadingSpinner message="Loading SkyLET categories..." />
       ) : error ? (
         <ErrorMessage message={error} />
       ) : (
