@@ -1,0 +1,168 @@
+/* Admin Enterprise ERP Design Tokens & Layout */
+:root {
+  --admin-bg-body: #f8fafc;
+  --admin-bg-surface: #ffffff;
+  --admin-bg-sidebar: #0f172a;
+  --admin-bg-sidebar-hover: #1e293b;
+  --admin-bg-sidebar-active: #1e3a8a;
+  
+  --admin-primary: #1e3a8a;
+  --admin-primary-hover: #1d4ed8;
+  --admin-primary-light: #eff6ff;
+
+  --admin-accent-red: #dc2626;
+  --admin-accent-blue: #2563eb;
+  --admin-accent-amber: #d97706;
+
+  --admin-text-main: #0f172a;
+  --admin-text-muted: #64748b;
+  --admin-text-light: #94a3b8;
+
+  --admin-border: #e2e8f0;
+  --admin-border-dark: #cbd5e1;
+
+  --admin-radius: 8px;
+  --admin-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --admin-shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+}
+
+.admin-body {
+  background-color: var(--admin-bg-body);
+  color: var(--admin-text-main);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin-sidebar {
+  width: 260px;
+  background-color: var(--admin-bg-sidebar);
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.25s ease;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 120;
+}
+
+.admin-sidebar.collapsed {
+  width: 72px;
+}
+
+.admin-main {
+  flex: 1;
+  margin-left: 260px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: margin-left 0.25s ease;
+}
+
+.admin-main.expanded {
+  margin-left: 72px;
+}
+
+.admin-topbar {
+  height: 64px;
+  background-color: var(--admin-bg-surface);
+  border-bottom: 1px solid var(--admin-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.75rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-content {
+  padding: 1.75rem;
+  flex: 1;
+}
+
+/* Stat KPI Cards */
+.stat-card {
+  background-color: var(--admin-bg-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+  padding: 1.25rem;
+  box-shadow: var(--admin-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--admin-shadow-md);
+}
+
+/* ERP Data Tables */
+.erp-table-card {
+  background-color: var(--admin-bg-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+  overflow: hidden;
+  box-shadow: var(--admin-shadow);
+}
+
+.erp-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.erp-table th {
+  background-color: #f1f5f9;
+  color: #475569;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.erp-table td {
+  padding: 0.95rem 1rem;
+  border-bottom: 1px solid var(--admin-border);
+  font-size: 0.9rem;
+  color: var(--admin-text-main);
+}
+
+.erp-table tr:hover td {
+  background-color: #f8fafc;
+}
+
+/* Badges */
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.admin-badge-pending { background-color: #fef3c7; color: #b45309; }
+.admin-badge-approved { background-color: #dbeafe; color: #1d4ed8; }
+.admin-badge-process { background-color: #f3e8ff; color: #6b21a8; }
+.admin-badge-ready { background-color: #e0f2fe; color: #0369a1; }
+.admin-badge-success { background-color: #dcfce7; color: #15803d; }
+.admin-badge-danger { background-color: #fee2e2; color: #b91c1c; }
+
+@media (max-width: 900px) {
+  .admin-sidebar { margin-left: -260px; }
+  .admin-sidebar.mobile-open { margin-left: 0; }
+  .admin-main { margin-left: 0 !important; }
+}
